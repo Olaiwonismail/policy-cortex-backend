@@ -3,6 +3,14 @@ import bodyParser from "body-parser";
 import Groq from "groq-sdk";
 
 const app = express();
+import cors from "cors";
+
+app.use(cors({
+  origin: "*", // frontend origin
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+}));
+
 app.use(bodyParser.json());
 
 // Initialize Groq client
