@@ -11,7 +11,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type"],
 }));
 
-app.use(bodyParser.json());
 
 // Initialize Groq client
 const groq = new Groq({
