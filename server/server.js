@@ -31,7 +31,7 @@ async function analyzePolicyText(text) {
 
 The JSON must follow this structure exactly:
 {
-  policy: "string",
+  "policy": "string",
   "provisions": [ "..." ],
   "supporters": [ "..." ],
   "opponents": [ "..." ],
@@ -46,7 +46,9 @@ ${text}`
 
   const output = chatCompletion.choices[0]?.message?.content || "";
   try {
-    return output;
+        const jsonOutput = JSON.parse(output);
+    return jsonOutput;
+  
   } catch (err) {
     // console.error("Invalid JSON from model:", output);
     throw new Error("Model did not return data");
