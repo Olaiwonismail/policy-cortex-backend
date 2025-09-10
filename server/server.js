@@ -21,13 +21,14 @@ const groq = new Groq({
 // AI summarization function for text
 async function analyzePolicyText(text) {
   const chatCompletion = await groq.chat.completions.create({
-    model: "gemma2-9b-it", // or try "llama3-70b-8192" for better reasoning
+    model: "groq/compound", // or try "llama3-70b-8192" for better reasoning
     temperature: 0,               // deterministic JSON
-    max_completion_tokens: 800,   // keeps output concise
+    max_completion_tokens: 800,
+    stream: false,   // keeps output concise
     messages: [
       {
         role: "user",
-        content: `Return ONLY valid JSON. No explanations, no markdown.
+        content: `Return ONLY valid JSON. no explanatio no markdown.
 
 The JSON must follow this structure exactly:
 {
@@ -46,7 +47,7 @@ ${text}`
 
   const output = chatCompletion.choices[0]?.message?.content || "";
   try {
-        const jsonOutput = JSON.parse(output);
+        const jsonOutput = output;
     return jsonOutput;
   
   } catch (err) {
@@ -57,7 +58,7 @@ ${text}`
 
 async function personalization(policy_json, user_input) {
   const chatCompletion = await groq.chat.completions.create({
-    model: "openai/gpt-oss-120b", // or try "llama3-70b-8192" for better reasoning
+    model: "groq/compound", // or try "llama3-70b-8192" for better reasoning
     temperature: 0,               // deterministic JSON
     max_completion_tokens: 800,   // keeps output concise
     messages: [
@@ -85,7 +86,7 @@ Do not add any explanations, text, or markdown outside the JSON.`
   }
 ]
   });
-
+  console.log(chatCompletion+'222');
   const output = chatCompletion.choices[0]?.message?.content || "";
   try {
     return output;
@@ -105,7 +106,7 @@ app.post("/analyze", async (req, res) => {
     console.log(text+'dddddddd');
     const Output = await analyzePolicyText(text);
     console.log(Output+'oooooooooo');
-    res.json(Output);
+    res.send(Output);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
