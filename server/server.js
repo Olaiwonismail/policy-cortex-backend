@@ -15,7 +15,7 @@ app.use(cors({
 }));
 // Initialize Groq client
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY, // set in your .env file
+  apiKey: process.env.GROQ_API_KEY , // set in your .env file
 });
 
 // AI summarization function for text
@@ -74,7 +74,7 @@ Return ONLY valid JSON in this exact format:
 }
 
 Policy JSON:
-${JSON.stringify(policy_json, null, 2)}
+${policy_json}
 
 User context:
 ${user_input}
