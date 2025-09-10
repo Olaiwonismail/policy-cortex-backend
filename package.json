@@ -1,0 +1,27 @@
+{
+  "name": "policy-cortex",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/genai": "^1.19.0",
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "fs": "0.0.1-security",
+    "grok-sdk": "^0.0.1-security",
+    "groq-sdk": "^0.32.0",
+    "multer": "^2.0.2",
+    "node-fetch": "^3.3.2",
+    "openai": "^5.20.0",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^5.4.149"
+  }
+}
