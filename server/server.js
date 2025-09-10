@@ -96,29 +96,44 @@ Return ONLY valid JSON in this format:
 var policy;
 // Endpoint to summarize raw text
 app.post("/analyze", async (req, res) => {
-  const { text } = req.body;
-  policy = text;
-  console.log("Analyzing text with Groq...");
-  try {
-    console.log(text+'dddddddd');
-    const Output = await analyzePolicyText(text);
-    console.log(Output+'oooooooooo');
-    res.send(Output);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  const { text } = req.body
+  if (!text) {
+    return res.status(400).json({ error: "Missing required field: text" })
   }
-});
+
+  policy = text
+  console.log("Analyzing text with Groq...", text)
+
+  try {
+    const Output = await analyzePolicyText(text) // your function
+    console.log("Analysis complete:", Output)
+    res.json(Output) // ✅ send as JSON (not plain string)
+  } catch (error) {
+    console.error("Analyze error:", error)
+    res.status(500).json({ error: error.message })
+  }
+})
 
 app.post("/personalization", async (req, res) => {
-  const {  user_input } = req.body;
-  console.log("Personalizing policy with Groq...");
-  try {
-    const Output = await personalization(policy, user_input);
-    res.send(Output);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  const { user_input } = req.body
+  if (!user_input) {
+    return res.status(400).json({ error: "Missing required field: user_input" })
   }
-});
+  if (!policy) {
+    return res.status(400).json({ error: "No policy analyzed yet" })
+  }
+
+  console.log("Personalizing policy with Groq...", user_input)
+
+  try {
+    const Output = await personalization(policy, user_input) // your function
+    res.json(Output) // ✅ send JSON
+  } catch (error) {
+    console.error("Personalization error:", error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {
