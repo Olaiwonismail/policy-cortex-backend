@@ -31,12 +31,13 @@ async function analyzePolicyText(text) {
 
 The JSON must follow this structure exactly:
 {
+  policy: "string",
   "provisions": [ "..." ],
   "supporters": [ "..." ],
   "opponents": [ "..." ],
   "impacts": [ "..." ]
 }
-
+"policy" should be a short descriptive title of the policy text.
 Policy text:
 ${text}`
       }
