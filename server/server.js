@@ -105,7 +105,7 @@ app.post("/analyze", async (req, res) => {
     console.log(text+'dddddddd');
     const Output = await analyzePolicyText(text);
     console.log(Output+'oooooooooo');
-    res.send(Output);
+    res.json(Output);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
