@@ -59,33 +59,29 @@ async function personalization(policy_json, user_input) {
     temperature: 0,               // deterministic JSON
     max_completion_tokens: 800,   // keeps output concise
     messages: [
-      {
-        role: "user",
-        content: `
-        Return ONLY valid JSON. No explanations, no markdown.
-        You are given a policy summary in JSON format.
-
-Policy JSON:
-${policy_json}
-
-User context:
-${user_input} 
-(e.g., "gig driver in California", "teacher in New York", "Muslim small-business owner")
-
-Task:
-Explain how this policy *could affect* someone with this background. 
-Be cautious and do not invent details. 
-If no clear impacts exist, say so. 
-
-Return ONLY valid JSON in this format:
+  {
+    role: "user",
+    content: `
+Return ONLY valid JSON in this exact format:
 {
   "personalImpacts": [
     "Short bullet point impact here",
     "Another impact here"
   ]
-}`
-      }
-    ]
+}
+
+Policy JSON:
+${JSON.stringify(policy_json, null, 2)}
+
+User context:
+${user_input}
+
+Task:
+Explain how this policy could affect someone with this background.
+If no clear impacts exist, return an empty array.
+Do not add any explanations, text, or markdown outside the JSON.`
+  }
+]
   });
 
   const output = chatCompletion.choices[0]?.message?.content || "";
