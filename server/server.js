@@ -55,7 +55,7 @@ ${text}`
 
 async function personalization(policy_json, user_input) {
   const chatCompletion = await groq.chat.completions.create({
-    model: "gemma2-9b-it", // or try "llama3-70b-8192" for better reasoning
+    model: "meta-llama/llama-4-scout-17b-16e-instruct", // or try "llama3-70b-8192" for better reasoning
     temperature: 0,               // deterministic JSON
     max_completion_tokens: 800,   // keeps output concise
     messages: [
