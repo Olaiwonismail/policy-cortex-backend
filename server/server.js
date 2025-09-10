@@ -61,7 +61,9 @@ async function personalization(policy_json, user_input) {
     messages: [
       {
         role: "user",
-        content: `You are given a policy summary in JSON format.
+        content: `
+        Return ONLY valid JSON. No explanations, no markdown.
+        You are given a policy summary in JSON format.
 
 Policy JSON:
 ${policy_json}
