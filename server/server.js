@@ -21,7 +21,7 @@ const groq = new Groq({
 // AI summarization function for text
 async function analyzePolicyText(text) {
   const chatCompletion = await groq.chat.completions.create({
-    model: "openai/gpt-oss-20b", // or try "llama3-70b-8192" for better reasoning
+    model: "gemma2-9b-it", // or try "llama3-70b-8192" for better reasoning
     temperature: 0,               // deterministic JSON
     max_completion_tokens: 800,   // keeps output concise
     messages: [
